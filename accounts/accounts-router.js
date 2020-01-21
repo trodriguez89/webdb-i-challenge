@@ -55,6 +55,20 @@ router.put("/:id", (req, res) => {
     })
 });
 
+// DELETE requests
+router.delete("/:id", (req, res) => {
+    const deleteId = req.params.id;
+    db('accounts').where({ id: deleteId })
+    .del()
+    .then(deleted => {
+        res.status(200).json(deleted)
+    })
+    .catch(error => {
+        console.log(error)
+        res.status(500).json({ errorMessage: "something went wrong!"})
+    })
+});
+
 module.exports = router;
 
 
